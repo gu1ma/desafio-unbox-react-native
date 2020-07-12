@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { StatusBar } from 'react-native';
 import store from './store';
 
-import Routes from '~/routes';
+import Routes from '~/routes/bottom.tabs.routes';
 
 const App = () => (
   <Provider store={store}>
