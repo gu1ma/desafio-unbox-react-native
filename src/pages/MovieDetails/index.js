@@ -4,6 +4,8 @@ import api from '~/services/api';
 
 import { format } from 'date-fns';
 
+import { useRoute } from '@react-navigation/native';
+
 import Loader from '~/components/Loader';
 
 import {
@@ -24,8 +26,9 @@ import { TouchableOpacity } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-export default function MovieDetails({ navigation }) {
-  const movieId = navigation.getParam('movieId');
+export default function MovieDetails() {
+  const route = useRoute();
+  const { movieId } = route.params;
   const [movie, setMovie] = useState(null);
   const [loadingStatus, setLoadingStatus] = useState(true);
 
@@ -52,52 +55,44 @@ export default function MovieDetails({ navigation }) {
   );
 
   return (
-    <ScrollContainer contentContainerStyle={{ flexGrow: 1 }}>
-      {loadingStatus ? (
-        <Loader />
-      ) : (
-        <Container>
-          <HeaderContainer>
-            <HeaderBackgroundImage
-              source={{
-                uri: `http://image.tmdb.org/t/p/w185${movie.backdrop_path}`,
-              }}
-              blurRadius={2}
-            />
-            <HeaderForegroundImage
-              source={{
-                uri: `http://image.tmdb.org/t/p/w185${movie.poster_path}`,
-              }}
-            />
-          </HeaderContainer>
-          <InfoContainer>
-            <Title>{movie.title}</Title>
-            <ScrollView
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}>
-              <GenresContainer>
-                {movie.genres.map((genre) => (
-                  <GenreBadge>{genre.name}</GenreBadge>
-                ))}
-              </GenresContainer>
-            </ScrollView>
-            <Description>{movie.overview}</Description>
-            <MovieInfos>
-              {`Release: ${dateFormatted} | Vote average: ${movie.vote_average}`}
-            </MovieInfos>
-          </InfoContainer>
-        </Container>
-      )}
-    </ScrollContainer>
+    movieId && (
+      <ScrollContainer contentContainerStyle={{ flexGrow: 1 }}>
+        {loadingStatus ? (
+          <Loader />
+        ) : (
+          <Container>
+            <HeaderContainer>
+              <HeaderBackgroundImage
+                source={{
+                  uri: `http://image.tmdb.org/t/p/w185${movie.backdrop_path}`,
+                }}
+                blurRadius={2}
+              />
+              <HeaderForegroundImage
+                source={{
+                  uri: `http://image.tmdb.org/t/p/w185${movie.poster_path}`,
+                }}
+              />
+            </HeaderContainer>
+            <InfoContainer>
+              <Title>{movie.title}</Title>
+              <ScrollView
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}>
+                <GenresContainer>
+                  {movie.genres.map((genre) => (
+                    <GenreBadge>{genre.name}</GenreBadge>
+                  ))}
+                </GenresContainer>
+              </ScrollView>
+              <Description>{movie.overview}</Description>
+              <MovieInfos>
+                {`Release: ${dateFormatted} | Vote average: ${movie.vote_average}`}
+              </MovieInfos>
+            </InfoContainer>
+          </Container>
+        )}
+      </ScrollContainer>
+    )
   );
 }
-
-MovieDetails.navigationOptions = ({ navigation }) => ({
-  //title: navigation.getParam('movie').title,
-  //title: '',
-  headerLeft: () => (
-    <TouchableOpacity onPress={() => navigation.goBack()}>
-      <Icon name="chevron-left" size={20} color="#fff" />
-    </TouchableOpacity>
-  ),
-});
