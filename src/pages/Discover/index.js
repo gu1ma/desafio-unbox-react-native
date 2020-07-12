@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-import { Container, GenreLabel, GenreContainer } from './styles';
+import { Container, GenreLabel } from './styles';
 
 import MovieItem from '~/components/MovieItem';
 import Loader from '~/components/Loader';

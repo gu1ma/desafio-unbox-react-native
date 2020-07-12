@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useCallback } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -23,10 +23,10 @@ export default function MovieItem({ movieGenrer, navigation }) {
 
   const dispatch = useDispatch();
 
-  function getListMovies() {
+  const getListMovies = useCallback(() => {
     dispatch({ type: 'GET_MOVIES', page, genreId: movieGenrer });
     setPage(page + 1);
-  }
+  }, [page, dispatch, movieGenrer]);
 
   useMemo(() => {
     getListMovies();

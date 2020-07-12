@@ -26,7 +26,7 @@ export const SearchInput = styled.TextInput.attrs({
 
 export const MovieContainer = styled.View`
   flex-direction: row;
-  margin: 10px;
+  margin: 5px 10px;
 `;
 
 export const MovieImage = styled.Image`

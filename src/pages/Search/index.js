@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-import { StatusBar, FlatList, Text } from 'react-native';
+import { StatusBar, FlatList, TouchableOpacity } from 'react-native';
 
 import api from '~/services/api';
 
@@ -77,16 +77,18 @@ export default function Search() {
           //ListFooterComponent={moviesLoader && <Loader />}
           horizontal={false}
           renderItem={({ item }) => (
-            <MovieContainer>
-              <MovieImage
-                source={{
-                  uri: `http://image.tmdb.org/t/p/w185${item.poster_path}`,
-                }}
-              />
-              <MovieTextContainer>
-                <MovieText>{item.title}</MovieText>
-              </MovieTextContainer>
-            </MovieContainer>
+            <TouchableOpacity>
+              <MovieContainer>
+                <MovieImage
+                  source={{
+                    uri: `http://image.tmdb.org/t/p/w185${item.poster_path}`,
+                  }}
+                />
+                <MovieTextContainer>
+                  <MovieText>{item.title}</MovieText>
+                </MovieTextContainer>
+              </MovieContainer>
+            </TouchableOpacity>
           )}
         />
       </Container>
