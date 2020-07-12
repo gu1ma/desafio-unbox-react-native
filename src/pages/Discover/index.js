@@ -66,10 +66,3 @@ export default function Discover({ navigation }) {
     </>
   );
 }
-
-Discover.navigationOptions = {
-  tabBarLabel: 'Discover',
-  tabBarIcon: ({ tintColor }) => (
-    <Icon name="th-list" size={20} color={tintColor} />
-  ),
-};
