@@ -16,10 +16,14 @@ import {
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
+import { useNavigation } from '@react-navigation/native';
+
 export default function Search() {
   const [searchValue, setSearchValue] = useState('');
   const [searchResult, setSearchResult] = useState([]);
   const [page, setPage] = useState(1);
+
+  const { navigate } = useNavigation();
 
   const searchMovies = useCallback(() => {
     if (searchValue.lenght === 0) {
@@ -77,7 +81,12 @@ export default function Search() {
           //ListFooterComponent={moviesLoader && <Loader />}
           horizontal={false}
           renderItem={({ item }) => (
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigate('MovieDetails', {
+                  movieId: item.id,
+                });
+              }}>
               <MovieContainer>
                 <MovieImage
                   source={{
