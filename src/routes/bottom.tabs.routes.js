@@ -56,6 +56,19 @@ export default function HomeRoutes() {
             ),
           }}
         />
+        <Tab.Screen
+          name="Search"
+          component={() => <Search />}
+          options={{
+            title: 'Search',
+            color: '#fff',
+            tabBarIcon: () => (
+              <>
+                <IconsFA5 name="search" size={20} color="#fff" />
+              </>
+            ),
+          }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
