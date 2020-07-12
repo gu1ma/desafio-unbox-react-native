@@ -4,13 +4,13 @@ import { Container } from './styles';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-export default function Genres() {
+export default function Search() {
   return <Container />;
 }
 
-Genres.navigationOptions = {
-  tabBarLabel: 'Genres',
+Search.navigationOptions = {
+  tabBarLabel: 'Search',
   tabBarIcon: ({ tintColor }) => (
-    <Icon name="file" size={20} color={tintColor} />
+    <Icon name="search" size={20} color={tintColor} />
   ),
 };

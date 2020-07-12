@@ -5,7 +5,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
-import Genres from '~/pages/Genres';
+import Search from '~/pages/Search';
 import Discover from '~/pages/Discover';
 import Trending from '~/pages/Trending';
 
@@ -45,12 +45,12 @@ const Routes = createAppContainer(
         navigationOptions: {
           tabBarLabel: 'Discover',
           tabBarIcon: ({ tintColor }) => (
-            <Icon name="search" size={20} color={tintColor} />
+            <Icon name="th-list" size={20} color={tintColor} />
           ),
         },
       },
       Trending,
-      Genres,
+      Search,
     },
     {
       resetOnBlur: true,

@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useState, useEffect, useMemo } from 'react';
+import { ScrollView } from 'react-native';
 import api from '~/services/api';
+
+import { format } from 'date-fns';
 
 import Loader from '~/components/Loader';
 
@@ -14,6 +16,8 @@ import {
   ScrollContainer,
   HeaderForegroundImage,
   HeaderContainer,
+  GenresContainer,
+  GenreBadge,
 } from './styles';
 
 import { TouchableOpacity } from 'react-native';
@@ -42,6 +46,11 @@ export default function MovieDetails({ navigation }) {
     getMovieData();
   }, []);
 
+  const dateFormatted = useMemo(
+    () => movie && format(new Date(movie.release_date), "MMMM 'of' yyyy"),
+    [movie],
+  );
+
   return (
     <ScrollContainer contentContainerStyle={{ flexGrow: 1 }}>
       {loadingStatus ? (
@@ -63,11 +72,19 @@ export default function MovieDetails({ navigation }) {
           </HeaderContainer>
           <InfoContainer>
             <Title>{movie.title}</Title>
-            {/* <MovieInfos>
-            Vote average: {movie.vote_average} | Realease:{' '}
-            {format(parseISO(movie.release_date), "MMMM 'of' yyyy")}
-          </MovieInfos>
-          <Description>{movie.overview}</Description> */}
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}>
+              <GenresContainer>
+                {movie.genres.map((genre) => (
+                  <GenreBadge>{genre.name}</GenreBadge>
+                ))}
+              </GenresContainer>
+            </ScrollView>
+            <Description>{movie.overview}</Description>
+            <MovieInfos>
+              {`Release: ${dateFormatted} | Vote average: ${movie.vote_average}`}
+            </MovieInfos>
           </InfoContainer>
         </Container>
       )}

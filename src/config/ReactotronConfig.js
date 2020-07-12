@@ -3,7 +3,7 @@ import { reactotronRedux } from 'reactotron-redux';
 import sagaPlugin from 'reactotron-redux-saga';
 
 if (__DEV__) {
-  const host = { host: '192.168.15.4' }; // YOUR_APP_ADRESS
+  const host = { host: '192.168.15.2' }; // YOUR_APP_ADRESS
 
   const tron = Reactotron.configure(host)
     .use(reactotronRedux())

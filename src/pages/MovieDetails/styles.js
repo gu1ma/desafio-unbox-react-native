@@ -33,17 +33,30 @@ export const Title = styled.Text`
   font-size: 26px;
   font-weight: bold;
   color: white;
-  padding: 10px 0px;
+  padding-top: 10px;
 `;
 
 export const MovieInfos = styled.Text`
-  font-size: 16px;
-  color: white;
-  font-weight: bold;
+  font-size: 12px;
+  color: #ccc;
+  padding-top: 5px;
 `;
 
 export const Description = styled.Text`
-  font-size: 16px;
+  font-size: 12px;
   color: white;
-  padding: 10px 0px;
+`;
+
+export const GenresContainer = styled.View`
+  flex-direction: row;
+  margin: 5px 0px;
+`;
+
+export const GenreBadge = styled.Text`
+  color: black;
+  background: white;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 15px;
+  margin: 0px 5px;
 `;

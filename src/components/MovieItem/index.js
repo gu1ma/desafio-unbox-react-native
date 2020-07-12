@@ -36,7 +36,7 @@ export default function MovieItem({ movieGenrer, navigation }) {
     <FlatList
       data={movies}
       showsHorizontalScrollIndicator={false}
-      keyExtractor={(item) => String(item.id.toString())}
+      keyExtractor={(item) => String(item.id)}
       onEndReached={() => getListMovies()}
       onEndReachedThreshold={0.1}
       ListFooterComponent={moviesLoader && <Loader />}
