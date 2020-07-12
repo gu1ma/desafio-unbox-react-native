@@ -21,8 +21,8 @@ export default function HomeRoutes() {
     <NavigationContainer>
       <Tab.Navigator
         tabBarOptions={{
-          activeTintColor: '#fff',
-          inactiveTintColor: '#fff',
+          activeTintColor: 'rgba(255, 255, 255, 1)',
+          inactiveTintColor: 'rgba(255, 255, 255, 0.6)',
           activeBackgroundColor: '#000',
           inactiveBackgroundColor: '#000',
         }}>
@@ -36,9 +36,9 @@ export default function HomeRoutes() {
           options={{
             title: 'Discover',
             color: '#fff',
-            tabBarIcon: () => (
+            tabBarIcon: ({ color }) => (
               <>
-                <IconsFeather name="menu" size={24} color="#fff" />
+                <IconsFeather name="menu" size={24} color={color} />
               </>
             ),
           }}
@@ -49,9 +49,9 @@ export default function HomeRoutes() {
           options={{
             title: 'Trending',
             color: '#fff',
-            tabBarIcon: () => (
+            tabBarIcon: ({ color }) => (
               <>
-                <IconsFA5 name="plus" size={20} color="#fff" />
+                <IconsFA5 name="plus" size={20} color={color} />
               </>
             ),
           }}
@@ -62,9 +62,9 @@ export default function HomeRoutes() {
           options={{
             title: 'Search',
             color: '#fff',
-            tabBarIcon: () => (
+            tabBarIcon: ({ color }) => (
               <>
-                <IconsFA5 name="search" size={20} color="#fff" />
+                <IconsFA5 name="search" size={20} color={color} />
               </>
             ),
           }}
