@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 
 import { StatusBar, FlatList, TouchableOpacity } from 'react-native';
 
 import api from '~/services/api';
+
+import Loader from '~/components/Loader';
 
 import {
   Container,
@@ -14,14 +16,13 @@ import {
   MovieTextContainer,
 } from './styles';
 
-import Icon from 'react-native-vector-icons/FontAwesome5';
-
 import { useNavigation } from '@react-navigation/native';
 
 export default function Search() {
   const [searchValue, setSearchValue] = useState('');
   const [searchResult, setSearchResult] = useState([]);
   const [page, setPage] = useState(1);
+  const [loader, setLoader] = useState(false);
 
   const { navigate } = useNavigation();
 
@@ -33,18 +34,21 @@ export default function Search() {
       `search/movie?api_key=dcabe3d98146057d837088eb8533a2cb&page=${page}&query=${searchValue}`,
     );
 
+    setLoader(true);
     result.then(
       (reponse) => {
-        console.log('resp', reponse);
+        console.tron.log('resp', reponse);
         setSearchResult(reponse.data.results);
+        setLoader(false);
       },
       (err) => {
         console.log('err', err);
+        setLoader(false);
       },
     );
   }, [page, searchValue]);
 
-  useEffect(
+  useMemo(
     (value) => {
       searchMovies(value);
       setSearchResult(value);
@@ -52,7 +56,7 @@ export default function Search() {
         setSearchResult([]);
       }
     },
-    [searchValue, searchMovies],
+    [searchMovies],
   );
 
   return (
@@ -72,42 +76,37 @@ export default function Search() {
             value={searchValue}
           />
         </Form>
-        <FlatList
-          data={searchResult}
-          showsVerticalScrollIndicator={false}
-          keyExtractor={(item) => String(item.id)}
-          //onEndReached={() => loadGenres()}
-          onEndReachedThreshold={0.1}
-          //ListFooterComponent={moviesLoader && <Loader />}
-          horizontal={false}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={() => {
-                navigate('MovieDetails', {
-                  movieId: item.id,
-                });
-              }}>
-              <MovieContainer>
-                <MovieImage
-                  source={{
-                    uri: `http://image.tmdb.org/t/p/w185${item.poster_path}`,
-                  }}
-                />
-                <MovieTextContainer>
-                  <MovieText>{item.title}</MovieText>
-                </MovieTextContainer>
-              </MovieContainer>
-            </TouchableOpacity>
-          )}
-        />
+        {loader ? (
+          <Loader />
+        ) : (
+          <FlatList
+            data={searchResult}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(item) => String(item.id)}
+            onEndReachedThreshold={0.1}
+            horizontal={false}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigate('MovieDetails', {
+                    movieId: item.id,
+                  });
+                }}>
+                <MovieContainer>
+                  <MovieImage
+                    source={{
+                      uri: `http://image.tmdb.org/t/p/w185${item.poster_path}`,
+                    }}
+                  />
+                  <MovieTextContainer>
+                    <MovieText>{item.title}</MovieText>
+                  </MovieTextContainer>
+                </MovieContainer>
+              </TouchableOpacity>
+            )}
+          />
+        )}
       </Container>
     </>
   );
 }
-
-Search.navigationOptions = {
-  tabBarLabel: 'Search',
-  tabBarIcon: ({ tintColor }) => (
-    <Icon name="search" size={20} color={tintColor} />
-  ),
-};

@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-
-import Icon from 'react-native-vector-icons/FontAwesome5';
-
 import { Container, GenreLabel } from './styles';
 
 import MovieItem from '~/components/MovieItem';
@@ -13,21 +10,11 @@ import { StatusBar, FlatList } from 'react-native';
 
 export default function Discover({ navigation }) {
   const dispatch = useDispatch();
-
   const { genres, genrersLoader } = useSelector((state) => state.discover);
-
-  const [genreOffset, setGenreOffset] = useState(3);
 
   useEffect(() => {
     dispatch({ type: 'GET_GENRES' });
   }, [dispatch]);
-
-  function loadGenres() {
-    if (genreOffset === genres.length) {
-      return;
-    }
-    setGenreOffset(genreOffset + 2);
-  }
 
   return (
     <>
@@ -43,12 +30,10 @@ export default function Discover({ navigation }) {
           </>
         ) : (
           <FlatList
-            data={genres.slice(0, 3)}
+            data={genres}
             showsVerticalScrollIndicator={false}
             keyExtractor={(item) => String(item.id)}
-            onEndReached={() => loadGenres()}
             onEndReachedThreshold={0.1}
-            //ListFooterComponent={moviesLoader && <Loader />}
             horizontal={false}
             renderItem={({ item }) => (
               <>

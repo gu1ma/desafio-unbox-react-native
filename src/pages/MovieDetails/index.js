@@ -81,7 +81,7 @@ export default function MovieDetails() {
                 showsHorizontalScrollIndicator={false}>
                 <GenresContainer>
                   {movie.genres.map((genre) => (
-                    <GenreBadge>{genre.name}</GenreBadge>
+                    <GenreBadge key={genre.id}>{genre.name}</GenreBadge>
                   ))}
                 </GenresContainer>
               </ScrollView>

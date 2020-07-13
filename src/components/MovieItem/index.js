@@ -12,7 +12,6 @@ import Loader from '~/components/Loader';
 
 export default function MovieItem({ movieGenrer, navigation }) {
   const [page, setPage] = useState(1);
-
   const movies = useSelector((state) =>
     state.discover.movies.filter((movie) => {
       return movie.genre_ids.includes(movieGenrer);
